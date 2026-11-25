@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Report Builder{% endblock %}
+{% block nav_rep %}active{% endblock %}
+{% block content %}
+<section class="card reveal">
+  <p class="prompt">{{ user.username }}@cyberlabs:~$ securecheck --build-report</p>
+  <h2>SecureCheck Report Builder</h2>
+  <p class="lead">Tick the runs to include, then export as JSON, CSV or a printable HTML report
+     (use your browser's <em>Print &rarr; Save as PDF</em> for a PDF).</p>
+
+  <div class="toolbar">
+    <input id="rtitle" value="SecureCheck Report" maxlength="120" aria-label="Report title">
+    <button class="btn small" data-fmt="html" type="button">Export HTML</button>
+    <button class="btn small ghost" data-fmt="json" type="button">JSON</button>
+    <button class="btn small ghost" data-fmt="csv" type="button">CSV</button>
+    <button class="btn small danger" id="delsel" type="button">Delete selected</button>
+  </div>
+  <p id="rstatus" class="status" role="status"></p>
+
+  <div class="tablewrap">
+    <table id="hist">
+      <thead><tr>
+        <th><input type="checkbox" id="all" aria-label="Select all"></th>
+        <th>#</th><th>Tool</th><th>Target</th><th>Status</th><th>ms</th><th>Time (UTC)</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}<script src="/static/js/reports.js" defer></script>{% endblock %}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<style>
+  body{font:14px/1.5 -apple-system,Segoe UI,Roboto,sans-serif;color:#111;max-width:900px;margin:2rem auto;padding:0 1rem}
+  h1{margin:0}.meta{color:#555;margin-bottom:1.5rem}
+  section{border:1px solid #ccc;border-radius:6px;padding:1rem;margin:1rem 0;page-break-inside:avoid}
+  h2{margin:0 0 .25rem;font-size:1.1rem}
+  .tag{display:inline-block;padding:1px 8px;border-radius:10px;font-size:12px;background:#e6f4ea;color:#137333}
+  .tag.error,.tag.blocked{background:#fce8e6;color:#c5221f}
+  table{border-collapse:collapse;width:100%;margin-top:.5rem}
+  td{border-top:1px solid #eee;padding:3px 6px;vertical-align:top;word-break:break-word}
+  td:first-child{color:#555;width:32%;font-family:monospace;font-size:12px}
+  footer{color:#777;font-size:12px;margin-top:2rem}
+  @media print{body{margin:0}}
+</style></head><body>
+<h1>{{ title }}</h1>
+<div class="meta">Generated {{ generated }} by {{ user }} &middot; {{ items|length }} scan(s)</div>
+
+<section><h2>Summary</h2>
+<table>
+{% for it in items %}
+<tr><td>#{{ it.id }}</td><td>{{ it.tool_name }} &mdash; {{ it.target or '(no target)' }}
+  <span class="tag {{ it.status }}">{{ it.status }}</span></td></tr>
+{% endfor %}
+</table></section>
+
+{% for it in items %}
+<section>
+  <h2>#{{ it.id }} {{ it.tool_name }}</h2>
+  <div class="meta">{{ it.category }} &middot; target: {{ it.target or '-' }} &middot; {{ it.created_at }} &middot; {{ it.duration_ms }} ms
+    <span class="tag {{ it.status }}">{{ it.status }}</span></div>
+  {% if it.error %}<p><strong>Message:</strong> {{ it.error }}</p>{% endif %}
+  {% if flat[it.id] %}
+  <table>{% for k, v in flat[it.id] %}<tr><td>{{ k }}</td><td>{{ v if v is not none else '-' }}</td></tr>{% endfor %}</table>
+  {% endif %}
+</section>
+{% endfor %}
+<footer>Produced by CyberLabs. Findings are automated and read-only; verify before acting.</footer>
+</body></html>

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block nav_dash %}active{% endblock %}
+{% block content %}
+<div class="layout">
+  <aside class="side" aria-label="Tools">
+    <input id="filter" type="search" placeholder="filter {{ tool_count }} tools..." aria-label="Filter tools">
+    <div id="toollist"></div>
+  </aside>
+
+  <section class="work">
+    <div id="welcome" class="card">
+      <p class="prompt">{{ user.username }}@cyberlabs:~$ select a tool</p>
+      <p>Choose a tool from the left. Every run is saved to your <a href="/reports">audit log</a>,
+         where you can bundle results into a report.</p>
+      <p class="hint">Only scan systems you own or are authorised to test. Loopback, private and
+         cloud-metadata addresses are blocked by default.</p>
+    </div>
+
+    <div id="toolpanel" class="card" hidden>
+      <div class="tp-head">
+        <h2 id="tp-name"></h2>
+        <span id="tp-cat" class="tag"></span>
+      </div>
+      <p id="tp-desc" class="lead"></p>
+      <form id="toolform"></form>
+      <div id="tp-status" class="status" role="status" aria-live="polite"></div>
+      <div id="tp-out" class="out" hidden>
+        <div class="out-bar">
+          <span id="tp-meta"></span>
+          <span>
+            <button id="toggle-raw" class="btn ghost small" type="button">Raw JSON</button>
+            <button id="copy" class="btn ghost small" type="button">Copy</button>
+          </span>
+        </div>
+        <div id="tp-view"></div>
+        <pre id="tp-raw" hidden></pre>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}<script src="/static/js/dashboard.js" defer></script>{% endblock %}

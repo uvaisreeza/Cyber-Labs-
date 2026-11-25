@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}CyberLabs{% endblock %} // CyberLabs</title>
+  <meta name="description" content="Free penetration-testing and threat-intelligence dashboard with 28 security tools.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='4' y='23' font-size='20' fill='%2300ff66' font-family='monospace'%3E%3E_%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div id="boot" class="boot" hidden aria-hidden="true"><pre id="boot-text"></pre></div>
+
+  <header class="topbar">
+    <a class="brand" href="/">&gt;_ CYBER<span>LABS</span></a>
+    <nav>
+      {% if user %}
+        <a href="/dashboard" class="{% block nav_dash %}{% endblock %}">Tools</a>
+        <a href="/reports" class="{% block nav_rep %}{% endblock %}">Reports</a>
+        <span class="who">[{{ user.username }}]</span>
+        <button id="logout" class="btn ghost" type="button">Logout</button>
+      {% else %}
+        <a href="/login">Login</a>
+        <a href="/register" class="btn small">Get access</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>{% block content %}{% endblock %}</main>
+
+  <footer class="foot">
+    <span>CyberLabs &mdash; free forever. Authorised use only: scan systems you own or have written permission to test.</span>
+  </footer>
+
+  <script src="/static/js/common.js" defer></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Free Pentest Dashboard{% endblock %}
+{% block content %}
+<section class="hero reveal">
+  <p class="prompt">root@cyberlabs:~$ ./launch --free --no-install</p>
+  <h1>{{ tool_count }} security tools.<br>One browser tab.</h1>
+  <p class="lead">Reconnaissance, cryptography, threat intelligence and utilities in a single dashboard.
+     No installs, no paid tier &mdash; just log in and run.</p>
+  <div class="cta">
+    <a class="btn" href="/register">Create free account</a>
+    <a class="btn ghost" href="/login">Login</a>
+  </div>
+</section>
+
+<section class="grid cats">
+  {% for id, name in categories %}
+  <article class="card reveal">
+    <h3>{{ name }}</h3>
+    <p>
+    {% if id == 'recon' %}Port scan, WHOIS, DNS, subdomains, TLS and HTTP header audits.
+    {% elif id == 'crypto' %}Hashing, file integrity, encoders, password analysis and generation.
+    {% elif id == 'intel' %}VirusTotal, geolocation, blocklists, SPF/DMARC and URL risk.
+    {% else %}JWT decoding, CIDR maths, redirect tracing, IOC defanging and more.{% endif %}
+    </p>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="card reveal safety">
+  <h3>Built to be safe to host</h3>
+  <ul>
+    <li>SSRF guards refuse loopback, private, link-local and cloud-metadata targets</li>
+    <li>bcrypt password hashing, signed JWT sessions in HttpOnly cookies</li>
+    <li>Per-client rate limiting and strict input validation on every tool</li>
+    <li>Every run is written to your private audit log; export it with the Report Builder</li>
+  </ul>
+</section>
+{% endblock %}
